@@ -1,0 +1,53 @@
+{
+  "name": "dcodegroup/laravel-myob-employee",
+  "description": "This package provides base functionality for linking a user with MYOB",
+  "keywords": [
+    "laravel",
+    "myob",
+    "dcode",
+    "employee"
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Nathan Rzepecki",
+      "email": "nathan@lionslair.net.au",
+      "homepage": "https://www.lionslair.net.au",
+      "role": "Developer"
+    },
+    {
+      "name": "Dcode Group",
+      "email": "forge@dcodegroup.com",
+      "homepage": "https://dcodegroup.com"
+    }
+  ],
+  "require": {
+    "php": "^8.0|8.1",
+    "dcodegroup/laravel-myob-oauth": "^1.0",
+    "laravel/framework": "^8.0|^9.0"
+  },
+  "require-dev": {
+    "friendsofphp/php-cs-fixer": "^2.16"
+  },
+  "autoload": {
+    "psr-4": {
+      "Dcodegroup\\LaravelMyobEmployee\\": "src"
+    }
+  },
+  "scripts": {
+    "psalm": "vendor/bin/psalm",
+    "format": "vendor/bin/php-cs-fixer fix --allow-risky=yes"
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Dcodegroup\\LaravelMyobEmployee\\LaravelMyobEmployeeServiceProvider"
+      ]
+    }
+  }
+}
