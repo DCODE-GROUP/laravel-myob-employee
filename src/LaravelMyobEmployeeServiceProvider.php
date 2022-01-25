@@ -28,7 +28,7 @@ class LaravelMyobEmployeeServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/laravel-myob-employee.php', 'laravel-myob-employee');
 
-        $this->publishes([__DIR__ . '/../config/laravel- myob-employee.php' => config_path('laravel-myob-employee.php')], 'laravel-myob-employee-config');
+        $this->publishes([__DIR__ . '/../config/laravel-myob-employee.php' => config_path('laravel-myob-employee.php')], 'laravel-myob-employee-config');
 
         $this->app->bind(BaseMyobEmployeeService::class, function () {
             return new BaseMyobEmployeeService(resolve(Application::class));

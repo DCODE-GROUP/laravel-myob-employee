@@ -3,11 +3,10 @@
 namespace Dcodegroup\LaravelMyobEmployee;
 
 use Dcodegroup\LaravelMyobOauth\MyobService;
+use Dcodegroup\LaravelMyobOauth\Provider\Application;
 use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
-use XeroPHP\Application;
-use XeroPHP\Models\PayrollAU\Employee;
 
 class BaseMyobEmployeeService extends MyobService
 {
@@ -16,32 +15,41 @@ class BaseMyobEmployeeService extends MyobService
         parent::__construct($myobClient);
     }
 
-    public function getEmployeeByEmail(string $email)
+    public function getEmployeeByEmail(string $email): array|bool
     {
-        return $this->searchModel(Employee::class, [
-            'Email' => urlencode($email),
-        ]);
+        $result = $this->myobClient->fetchFirst("/Contact/Employee?\$filter=Addresses/any(x: x/Email eq '".urlencode($email)."')");
+
+        if (is_null($result)) {
+            return false;
+        }
+
+        return $result;
     }
 
-    public function syncXeroEmployee(Model $user)
+    public function syncMyobEmployee(Model $user)
     {
         try {
-            $employee = $this->getEmployeeByEmail($user->email);
+            $data = $this->getEmployeeByEmail($user->email);
 
-            if ($employee instanceof Employee) {
-                $user->xero_employee_id = $employee->getEmployeeID();
-                $user->xero_default_earnings_rate_id = $employee->getOrdinaryEarningsRateID();
-                $user->xero_default_payroll_calendar_id = $employee->getPayrollCalendarID();
+            if (is_array($data)) {
+                $user->myob_employee_id = data_get($data, 'UID');
+                $user->myob_employee_payroll_details_id = data_get($data, 'EmployeePayrollDetails.UID');
+                $user->myob_employee_payment_details_id = data_get($data, 'EmployeePaymentDetails.UID');
+                $user->myob_employee_standard_pay_id = data_get($data, 'EmployeeStandardPay.UID');
                 $user->save();
             } else {
                 // not found so clear what is stored
-                logger('employee not found with email: ' . $user->email);
+                //logger('employee not found with email: '.$user->email);
                 $user->update([
-                                  'myob_employee_id' => null,
-                              ]);
+                    'myob_employee_id' => null,
+                    'myob_employee_payroll_details_id' => null,
+                    'myob_employee_payment_details_id' => null,
+                    'myob_employee_standard_pay_id' => null,
+                    // might need the other fields here
+                ]);
             }
         } catch (Exception $e) {
-            Log::error('Employee not found in myob syncXeroEmployee error: ' . $e->getMessage());
+            Log::error('Employee not found in MYOB syncMyobEmployee error: '.$e->getMessage());
             report($e);
 
             return false;

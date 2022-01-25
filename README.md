@@ -69,30 +69,31 @@ eg Like below but what ever your using
 
 ```php
 
-  public function getXeroEmployeeNameAttribute(): string
+  public function getMyobEmployeeNameAttribute(): string
   {
-    //return $this->name;
+    return $this->name;
     //return $this->first_name . ' ' . $this->last_name;
-    return $this->prefered_name;
+    //return $this->prefered_name;
   }
 
 ```
 
-The assumption is you have already synced the payroll details from the [dcodegroup/laravel-xero-payroll-au](https://github.com/dcodegroup/laravel-xero-payroll-au).
+[//]: # (The assumption is you have already synced the payroll details from the [dcodegroup/laravel-xero-payroll-au]&#40;https://github.com/dcodegroup/laravel-xero-payroll-au&#41;.)
 
-There is a second command you can use to automatically populate the fields added for earnings rate to default to those you have already configured within  [dcodegroup/laravel-xero-payroll-au](https://github.com/dcodegroup/laravel-xero-payroll-au). 
-You can run this multiple times as you get new users as it will only update users that have no values.
+[//]: # (There is a second command you can use to automatically populate the fields added for earnings rate to default to those you have already configured within  [dcodegroup/laravel-xero-payroll-au]&#40;https://github.com/dcodegroup/laravel-xero-payroll-au&#41;. )
+
+[//]: # (You can run this multiple times as you get new users as it will only update users that have no values.)
 
 You should add the following trait to the Users model.
 
 ```php
 class User extends Authenticatable
 {
-    use UsesXeroEmployee;
+    use UsesMyobEmployee;
 
 ```
 
-This package provides a route that can be used to provide an endpoint to dispatch the SyncXeroEmployee job.
+This package provides a route that can be used to provide an endpoint to dispatch the SyncMyobEmployee job.
 
-[example.com/xero-employee/{user}] xero_employee.sync Please see the config file if you wish to customise the route. This will dispatch the job for the user and sync them to your application.
+[example.com/myob-employee/{user}] xero_employee.sync Please see the config file if you wish to customise the route. This will dispatch the job for the user and sync them to your application.
 
