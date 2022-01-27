@@ -28,7 +28,7 @@ class DefaultUserEarningRatesCommand extends Command
     public function handle()
     {
         User::whereNull('myob_employee_payroll_details_id')->update(['myob_employee_payroll_details_id' => Configuration::byKey('myob_default_employee_payroll_details_id')->get()->pluck('value')->first()]);
-        User::whereNull('xero_default_earnings_rate_id')->update(['myob_employee_payment_details_id' => Configuration::byKey('myob_default_employee_payment_details_id')->get()->pluck('value')->first()]);
-        User::whereNull('xero_time_and_a_half_earnings_rate_id')->update(['myob_employee_standard_pay_id' => Configuration::byKey('myob_default_employee_standard_pay_id')->get()->pluck('value')->first()]);
+        User::whereNull('myob_employee_payment_details_id')->update(['myob_employee_payment_details_id' => Configuration::byKey('myob_default_employee_payment_details_id')->get()->pluck('value')->first()]);
+        User::whereNull('myob_employee_standard_pay_id')->update(['myob_employee_standard_pay_id' => Configuration::byKey('myob_default_employee_standard_pay_id')->get()->pluck('value')->first()]);
     }
 }
