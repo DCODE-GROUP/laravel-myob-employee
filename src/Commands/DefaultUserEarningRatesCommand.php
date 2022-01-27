@@ -13,7 +13,7 @@ class DefaultUserEarningRatesCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'laravel-xero-employee:assign-default-earning-rates';
+    protected $signature = 'laravel-myob-employee:assign-default-earning-rates';
 
     /**
      * The console command description.
@@ -27,9 +27,8 @@ class DefaultUserEarningRatesCommand extends Command
      */
     public function handle()
     {
-        User::whereNull('xero_default_payroll_calendar_id')->update(['xero_default_payroll_calendar_id' => Configuration::byKey('xero_default_payroll_calendar')->get()->pluck('value')->first()]);
-        User::whereNull('xero_default_earnings_rate_id')->update(['xero_default_earnings_rate_id' => Configuration::byKey('xero_default_ordinary_earnings_rate_id')->get()->pluck('value')->first()]);
-        User::whereNull('xero_time_and_a_half_earnings_rate_id')->update(['xero_time_and_a_half_earnings_rate_id' => Configuration::byKey('xero_default_time_and_a_half')->get()->pluck('value')->first()]);
-        User::whereNull('xero_double_time_earnings_rate_id')->update(['xero_double_time_earnings_rate_id' => Configuration::byKey('xero_default_double_time')->get()->pluck('value')->first()]);
+        User::whereNull('myob_employee_payroll_details_id')->update(['myob_employee_payroll_details_id' => Configuration::byKey('myob_default_employee_payroll_details_id')->get()->pluck('value')->first()]);
+        User::whereNull('xero_default_earnings_rate_id')->update(['myob_employee_payment_details_id' => Configuration::byKey('myob_default_employee_payment_details_id')->get()->pluck('value')->first()]);
+        User::whereNull('xero_time_and_a_half_earnings_rate_id')->update(['myob_employee_standard_pay_id' => Configuration::byKey('myob_default_employee_standard_pay_id')->get()->pluck('value')->first()]);
     }
 }
