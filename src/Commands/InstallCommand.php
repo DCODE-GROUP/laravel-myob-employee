@@ -36,26 +36,26 @@ class InstallCommand extends Command
 
         if (Configuration::byKey('myob_default_employee_payroll_details_id')->doesntExist()) {
             Configuration::create([
-                                      'group' => $this->configurationGroup,
-                                      'name' => 'MYOB default payroll details ID',
-                                      'key' => 'myob_default_employee_payroll_details_id',
-                                  ]);
+                'group' => $this->configurationGroup,
+                'name' => 'MYOB default payroll details ID',
+                'key' => 'myob_default_employee_payroll_details_id',
+            ]);
         }
 
         if (Configuration::byKey('myob_default_employee_payment_details_id')->doesntExist()) {
             Configuration::create([
-                                      'group' => $this->configurationGroup,
-                                      'name' => 'MYOB default payment details ID',
-                                      'key' => 'myob_default_employee_payment_details_id',
-                                  ]);
+                'group' => $this->configurationGroup,
+                'name' => 'MYOB default payment details ID',
+                'key' => 'myob_default_employee_payment_details_id',
+            ]);
         }
 
         if (Configuration::byKey('myob_default_employee_standard_pay_id')->doesntExist()) {
             Configuration::create([
-                                      'group' => $this->configurationGroup,
-                                      'name' => 'MYOB default standard pay ID',
-                                      'key' => 'myob_default_employee_standard_pay_id',
-                                  ]);
+                'group' => $this->configurationGroup,
+                'name' => 'MYOB default standard pay ID',
+                'key' => 'myob_default_employee_standard_pay_id',
+            ]);
         }
 
         $this->info('Laravel MYOB Employee Configuration variables installed.');

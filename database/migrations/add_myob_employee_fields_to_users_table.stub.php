@@ -32,11 +32,11 @@ class AddMyobEmployeeFieldsToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropColumn([
-                                   'myob_employee_id',
-                                   'myob_employee_payroll_details_id',
-                                   'myob_employee_payment_details_id',
-                                   'myob_employee_standard_pay_id',
-                               ]);
+                'myob_employee_id',
+                'myob_employee_payroll_details_id',
+                'myob_employee_payment_details_id',
+                'myob_employee_standard_pay_id',
+            ]);
         });
     }
 }

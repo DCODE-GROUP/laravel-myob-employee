@@ -28,7 +28,7 @@ class LaravelMyobEmployeeServiceProvider extends ServiceProvider
     {
         $this->mergeConfigFrom(__DIR__.'/../config/laravel-myob-employee.php', 'laravel-myob-employee');
 
-        $this->publishes([__DIR__ . '/../config/laravel-myob-employee.php' => config_path('laravel-myob-employee.php')], 'laravel-myob-employee-config');
+        $this->publishes([__DIR__.'/../config/laravel-myob-employee.php' => config_path('laravel-myob-employee.php')], 'laravel-myob-employee-config');
 
         $this->app->bind(BaseMyobEmployeeService::class, function () {
             return new BaseMyobEmployeeService(resolve(Application::class));
@@ -37,7 +37,7 @@ class LaravelMyobEmployeeServiceProvider extends ServiceProvider
 
     protected function offerPublishing()
     {
-        $this->publishes([__DIR__ . '/../config/laravel-myob-employee.php' => config_path('laravel-myob-employee.php')], 'laravel-xero-employee-config');
+        $this->publishes([__DIR__.'/../config/laravel-myob-employee.php' => config_path('laravel-myob-employee.php')], 'laravel-xero-employee-config');
 
         if (Schema::hasTable('users') &&
             ! Schema::hasColumns('users', [
@@ -49,8 +49,8 @@ class LaravelMyobEmployeeServiceProvider extends ServiceProvider
             $timestamp = date('Y_m_d_His', time());
 
             $this->publishes([
-                                 __DIR__ . '/../database/migrations/add_myob_employee_fields_to_users_table.stub.php' => database_path('migrations/' . $timestamp . '_add_myob_employee_fields_to_users_table.php'),
-                             ], 'laravel-myob-employee-migrations');
+                __DIR__.'/../database/migrations/add_myob_employee_fields_to_users_table.stub.php' => database_path('migrations/'.$timestamp.'_add_myob_employee_fields_to_users_table.php'),
+            ], 'laravel-myob-employee-migrations');
         }
     }
 
@@ -58,20 +58,20 @@ class LaravelMyobEmployeeServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->commands([
-                                InstallCommand::class,
-                                //DefaultUserEarningRatesCommand::class,
-                            ]);
+                InstallCommand::class,
+                //DefaultUserEarningRatesCommand::class,
+            ]);
         }
     }
 
     protected function registerRoutes()
     {
         Route::group([
-                         'prefix' => config('laravel-myob-employee.path'),
-                         'as' => Str::slug(config('laravel-myob-employee.path'), '_') . '.',
-                         'middleware' => config('laravel-myob-employee.middleware', 'web'),
-                     ], function () {
-                         $this->loadRoutesFrom(__DIR__ . '/../routes/laravel_myob_employee.php');
-                     });
+            'prefix' => config('laravel-myob-employee.path'),
+            'as' => Str::slug(config('laravel-myob-employee.path'), '_').'.',
+            'middleware' => config('laravel-myob-employee.middleware', 'web'),
+        ], function () {
+            $this->loadRoutesFrom(__DIR__.'/../routes/laravel_myob_employee.php');
+        });
     }
 }

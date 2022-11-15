@@ -16,19 +16,19 @@ class MyobEmployeeObserver
         //Artisan::call('laravel-myob-employee:assign-default-earning-rates');
 
         $model->update([
-                           'myob_employee_payroll_details_id' => Configuration::byKey('myob_default_employee_payroll_details_id')
-                                                                              ->get()
-                                                                              ->pluck('value')
-                                                                              ->first(),
-                           'myob_employee_payment_details_id' => Configuration::byKey('xero_default_ordinary_earnings_rate_id')
-                                                                           ->get()
-                                                                           ->pluck('value')
-                                                                           ->first(),
-                           'myob_employee_standard_pay_id' => Configuration::byKey('myob_default_employee_standard_pay_id')
-                                                                                   ->get()
-                                                                                   ->pluck('value')
-                                                                                   ->first(),
-                       ]);
+            'myob_employee_payroll_details_id' => Configuration::byKey('myob_default_employee_payroll_details_id')
+                                                               ->get()
+                                                               ->pluck('value')
+                                                               ->first(),
+            'myob_employee_payment_details_id' => Configuration::byKey('xero_default_ordinary_earnings_rate_id')
+                                                            ->get()
+                                                            ->pluck('value')
+                                                            ->first(),
+            'myob_employee_standard_pay_id' => Configuration::byKey('myob_default_employee_standard_pay_id')
+                                                                    ->get()
+                                                                    ->pluck('value')
+                                                                    ->first(),
+        ]);
 
         /**
          * Dispatch the job to sync the model with Xero.
