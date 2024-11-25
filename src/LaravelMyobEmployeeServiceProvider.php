@@ -19,7 +19,7 @@ class LaravelMyobEmployeeServiceProvider extends ServiceProvider
         $this->registerCommands();
 
         $employeeClass = config('laravel-myob-employee.employee_model');
-        $employeeClass::observe(new MyobEmployeeObserver());
+        $employeeClass::observe(new MyobEmployeeObserver);
 
         $this->registerRoutes();
     }
